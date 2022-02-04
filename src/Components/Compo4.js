@@ -9,7 +9,9 @@ function Compo4({ VideoID }) {
   const Fetcher3 = async () => {
     console.log(VideoID);
     const response = await axios
-      .get(`http://localhost:4000/page3/url=${VideoID}`)
+      .get(
+        `  https://elegant-kare-5ce082.netlify.app/.netlify/functions/api/page3/url=${VideoID}`
+      )
       .then((response) => {
         console.log(response.data);
         setVideoURL(response.data.data);

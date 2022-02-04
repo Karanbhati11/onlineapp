@@ -14,7 +14,9 @@ function Compo2() {
 
   const Fetcher = async () => {
     const response = await axios
-      .get(`http://localhost:4000/page1/${sitechanger}/${param}`)
+      .get(
+        `  https://elegant-kare-5ce082.netlify.app/.netlify/functions/api/page1/${sitechanger}/${param}`
+      )
       .then((response) => {
         setData(response.data);
         //   console.log(response.data);

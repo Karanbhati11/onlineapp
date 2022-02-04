@@ -14,7 +14,9 @@ function Compo3({ Url }) {
 
   const Fetcher2 = async () => {
     const response = await axios
-      .get(`http://localhost:4000/page2/s=${URLtosend}`)
+      .get(
+        `  https://elegant-kare-5ce082.netlify.app/.netlify/functions/api/page2/s=${URLtosend}`
+      )
       .then((response) => {
         setData2(response.data);
         HREFFETCHER(response.data);
