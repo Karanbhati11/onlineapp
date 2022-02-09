@@ -17,7 +17,7 @@ function Compo3({ Url }) {
   const Fetcher2 = async () => {
     await axios
       .get(
-        `  http://localhost:8888/.netlify/functions/api/page2/s=${URLtosend}`
+        `   https://www.project1.ga/.netlify/functions/api/page2/s=${URLtosend}`
         // `http://localhost:4000/page2/s=${URLtosend}`
       )
       .then((response) => {

@@ -16,7 +16,7 @@ function Compo2() {
   const Fetcher = async () => {
     await axios
       .get(
-        `  http://localhost:8888/.netlify/functions/api/page1/${sitechanger}/${param}`
+        ` https://www.project1.ga/.netlify/functions/api/page1/${sitechanger}/${param}`
         // `http://localhost:4000/page1/${sitechanger}/${param}`
       )
       .then((response) => {

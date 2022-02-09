@@ -8,7 +8,7 @@ function Compo4({ VideoID }) {
     console.log(VideoID);
     await axios
       .get(
-        `  http://localhost:8888/.netlify/functions/api/page3/url=${VideoID}`
+        `  https://www.project1.ga/.netlify/functions/api/page3/url=${VideoID}`
         // `http://localhost:4000/page3/url=${VideoID}`
       )
       .then((response) => {
