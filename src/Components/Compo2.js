@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "react-js-loader";
@@ -43,6 +44,7 @@ function Compo2() {
         return item;
       }
     });
+    // console.log(image1.filter((item) => item !== undefined));
     const image2 = image1.filter((item) => {
       if (item !== undefined) {
         if (
@@ -55,13 +57,16 @@ function Compo2() {
         }
       }
     });
+    // console.log(image2);
     const imagemain = image2.map((item) => {
       if (item !== undefined) {
         return item.split("src=")[1].replace(/"/g, "");
       }
     });
-    setImage(uniq(imagemain));
+    console.log(imagemain);
+    setImage(imagemain);
 
+    // eslint-disable-next-line array-callback-return
     const title = b.map((item) => {
       if (item.includes("title")) {
         return item.split("title=")[1].split('"')[1];
@@ -81,7 +86,7 @@ function Compo2() {
     setIsLoading(true);
     setParam(e.target.value);
     Fetcher();
-  }, 100);
+  }, 50);
 
   if (IsLoading) {
     return (
@@ -163,19 +168,19 @@ function Compo2() {
                 justifyContent: "flex-start",
               }}
             >
-              {/* {Image.map((item) => (
-              <img
-                style={{
-                  border: "2px solid black",
-                  height: "200px",
-                  width: "150px",
-                  margin: "0",
-                  textAlign: "justify",
-                }}
-                src={item}
-                alt="image123"
-              ></img>
-            ))} */}
+              {Image.map((item) => (
+                <img
+                  style={{
+                    border: "2px solid black",
+                    height: "200px",
+                    width: "150px",
+                    margin: "0",
+                    textAlign: "justify",
+                  }}
+                  src={item}
+                  alt="image123"
+                ></img>
+              ))}
             </div>
             <div>
               {Title.map((item) => (

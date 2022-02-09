@@ -54,12 +54,18 @@ function Compo3({ Url }) {
         }
       }
     });
+    console.log(download2);
     const downloadmain = download2.map((item) => {
       if (item !== undefined) {
-        return item
-          .split("href=")[1]
-          .replace(/["]/, "https://extramovies.wine")
-          .replace(/["]/g, "");
+        if (item.includes("casa/archives")) {
+          console.log(item);
+          return item.split("href=")[1].replace(/["]/g, "");
+        } else {
+          return item
+            .split("href=")[1]
+            .replace(/["]/, "https://extramovies.wine")
+            .replace(/["]/g, "");
+        }
       }
     });
     setIsLoading(false);
@@ -96,7 +102,7 @@ function Compo3({ Url }) {
   useEffect(() => {
     Fetcher2();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [URLtosend, IsDownloadBtn, IsPlayBtn]);
+  }, [IsDownloadBtn]);
 
   if (Ismain) {
     return (
@@ -113,7 +119,7 @@ function Compo3({ Url }) {
             justifyContent: "center",
           }}
         >
-          <button
+          {/* <button
             className="btn btn-dark"
             style={{
               height: "50px",
@@ -129,7 +135,7 @@ function Compo3({ Url }) {
             }}
           >
             Play
-          </button>
+          </button> */}
           <button
             className="btn btn-dark"
             style={{
@@ -213,7 +219,11 @@ function Compo3({ Url }) {
             }}
           >
             {DownloadBtn.map((item) => {
-              return <Download item={item} />;
+              return (
+                <div key={Math.random()}>
+                  <Download item={item} />
+                </div>
+              );
             })}
           </div>
         </React.Fragment>
