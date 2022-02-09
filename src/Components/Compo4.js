@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { debounce, uniq } from "lodash";
-
 function Compo4({ VideoID }) {
   const [VideoURL, setVideoURL] = useState([]);
   const [Toggler, setToggler] = useState(true);
   const [Error, setError] = useState(false);
   const Fetcher3 = async () => {
     console.log(VideoID);
-    const response = await axios
+    await axios
       .get(
-        `  https://elegant-kare-5ce082.netlify.app/.netlify/functions/api/page3/url=${VideoID}`
+        // `  http://localhost:8888/.netlify/functions/api/page3/url=${VideoID}`
+        `http://localhost:4000/page3/url=${VideoID}`
       )
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
         setVideoURL(response.data.data);
         if (response.data.success === false) {
           setError(true);
@@ -53,7 +52,7 @@ function Compo4({ VideoID }) {
         </div>
       </React.Fragment>
     );
-  } else if (Error === true) {
+  } else if (Error === true || VideoID === null) {
     return (
       <React.Fragment>
         <h3

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import Loader from "react-js-loader";
 import { debounce, uniq } from "lodash";
 import Compo3 from "./Compo3";
 
@@ -10,16 +10,17 @@ function Compo2() {
   const [URL, setURL] = useState([]);
   const [Image, setImage] = useState([]);
   const [Title, setTitle] = useState([]);
+  const [IsLoading, setIsLoading] = useState(false);
   const sitechanger = "wine";
 
   const Fetcher = async () => {
-    const response = await axios
+    await axios
       .get(
-        `  https://elegant-kare-5ce082.netlify.app/.netlify/functions/api/page1/${sitechanger}/${param}`
+        // `  http://localhost:8888/.netlify/functions/api/page1/${sitechanger}/${param}`
+        `http://localhost:4000/page1/${sitechanger}/${param}`
       )
       .then((response) => {
         setData(response.data);
-        //   console.log(response.data);
       });
   };
   const Page1 = (e) => {
@@ -74,55 +75,95 @@ function Compo2() {
       }
     });
     setURL(urls);
+    setIsLoading(false);
   };
   const ChangeHandler = debounce((e) => {
+    setIsLoading(true);
     setParam(e.target.value);
     Fetcher();
   }, 100);
-  return (
-    <React.Fragment>
-      <div className="container ">
-        <form>
-          <div className="form-group">
-            <input
-              style={{ margin: "20px" }}
-              onChange={(e) => ChangeHandler(e)}
-            />
-            <button
-              className="btn btn-primary"
-              onClick={(e) => Page1(e)}
-              style={{ margin: "20px" }}
-            >
-              Submit
-            </button>
-            <button
-              className="btn btn-primary"
-              onClick={(e) => {
-                e.preventDefault();
-                setImage([]);
-                setTitle([]);
-                setURL([]);
-                setParam("");
-              }}
-              style={{ margin: "20px" }}
-            >
-              clear
-            </button>
-          </div>
-        </form>
-        <div
-          className="container card"
-          style={{ display: "flex", flexDirection: "row" }}
-        >
-          {/* <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              justifyContent: "flex-start",
-            }}
+
+  if (IsLoading) {
+    return (
+      <React.Fragment>
+        <div className="container">
+          <form>
+            <div className="form-group">
+              <input
+                style={{ margin: "20px" }}
+                onChange={(e) => ChangeHandler(e)}
+              />
+              <button
+                className="btn btn-primary"
+                onClick={(e) => Page1(e)}
+                style={{ margin: "20px" }}
+              >
+                Submit
+              </button>
+              <button
+                className="btn btn-primary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setImage([]);
+                  setTitle([]);
+                  setURL([]);
+                  setParam("");
+                }}
+                style={{ margin: "20px" }}
+              >
+                clear
+              </button>
+            </div>
+          </form>
+          <Loader type="hourglass" bgColor={"#000000"} size={100} />
+        </div>
+      </React.Fragment>
+    );
+  } else if (!IsLoading) {
+    return (
+      <React.Fragment>
+        <div className="container ">
+          <form>
+            <div className="form-group">
+              <input
+                style={{ margin: "20px" }}
+                onChange={(e) => ChangeHandler(e)}
+              />
+              <button
+                className="btn btn-primary"
+                onClick={(e) => Page1(e)}
+                style={{ margin: "20px" }}
+              >
+                Submit
+              </button>
+              <button
+                className="btn btn-primary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setImage([]);
+                  setTitle([]);
+                  setURL([]);
+                  setParam("");
+                }}
+                style={{ margin: "20px" }}
+              >
+                clear
+              </button>
+            </div>
+          </form>
+          <div
+            className="container card"
+            style={{ display: "flex", flexDirection: "row" }}
           >
-            {Image.map((item) => (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+                justifyContent: "flex-start",
+              }}
+            >
+              {/* {Image.map((item) => (
               <img
                 style={{
                   border: "2px solid black",
@@ -134,35 +175,36 @@ function Compo2() {
                 src={item}
                 alt="image123"
               ></img>
-            ))}
-          </div> */}
-          <div>
-            {Title.map((item) => (
-              <h3
-                className="text-center"
-                style={{
-                  // border: "2px solid black",
-                  height: "200px",
-                  margin: "0",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignContent: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {item}
-              </h3>
-            ))}
-          </div>
-          <div style={{}}>
-            {URL.map((item) => (
-              <Compo3 Url={item} />
-            ))}
+            ))} */}
+            </div>
+            <div>
+              {Title.map((item) => (
+                <h3
+                  className="text-center"
+                  style={{
+                    // border: "2px solid black",
+                    height: "200px",
+                    margin: "0",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignContent: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {item}
+                </h3>
+              ))}
+            </div>
+            <div style={{}}>
+              {URL.map((item) => (
+                <Compo3 Url={item} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </React.Fragment>
-  );
+      </React.Fragment>
+    );
+  }
 }
 
 export default Compo2;
