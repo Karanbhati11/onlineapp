@@ -13,11 +13,10 @@ function Compo2() {
   const [Title, setTitle] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
   const sitechanger = "wine";
-
   const Fetcher = async () => {
     await axios
       .get(
-        ` https://www.project1.ga/.netlify/functions/api/page1/${sitechanger}/${param}`
+        `https://www.project1.ga/.netlify/functions/api/page1/${sitechanger}/${param}`
         // `http://localhost:4000/page1/${sitechanger}/${param}`
       )
       .then((response) => {
@@ -65,7 +64,6 @@ function Compo2() {
     });
     console.log(imagemain);
     setImage(imagemain);
-
     // eslint-disable-next-line array-callback-return
     const title = b.map((item) => {
       if (item.includes("title")) {
@@ -82,16 +80,16 @@ function Compo2() {
     setURL(urls);
     setIsLoading(false);
   };
-  const ChangeHandler = debounce((e) => {
+  const ChangeHandler = (e) => {
     setIsLoading(true);
     setParam(e.target.value);
     Fetcher();
-  }, 50);
-
+  };
   if (IsLoading) {
     return (
       <React.Fragment>
         <div className="container">
+          <h1 style={{ color: "red" }}>wait 2 seconds before you hit enter</h1>
           <form>
             <div className="form-group">
               <input
@@ -100,6 +98,7 @@ function Compo2() {
               />
               <button
                 className="btn btn-primary"
+                type="submit"
                 onClick={(e) => Page1(e)}
                 style={{ margin: "20px" }}
               >
@@ -128,6 +127,7 @@ function Compo2() {
     return (
       <React.Fragment>
         <div className="container ">
+          <h1 style={{ color: "red" }}>wait 2 seconds before you hit enter</h1>
           <form>
             <div className="form-group">
               <input
